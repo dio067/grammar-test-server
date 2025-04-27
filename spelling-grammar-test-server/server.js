@@ -2,6 +2,16 @@ import express from "express";
 import cors from "cors";
 import fs from "fs";
 
+const path = require("path");
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "build")));
+
+// Anything that doesn't match an API route, send back React index.html
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "build", "index.html"));
+});
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
